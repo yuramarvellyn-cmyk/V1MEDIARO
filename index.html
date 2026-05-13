@@ -411,13 +411,13 @@
         .status-bar {
             background: var(--paper);
             border-bottom: 5px solid var(--wood);
-            padding: clamp(8px, 2vw, 12px) clamp(10px, 3vw, 30px);
+            padding: clamp(14px, 2vw, 18px) clamp(10px, 3vw, 30px);
             display: flex;
-            justify-content: space-between;
-            align-items: center;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: stretch;
             z-index: 40;
-            flex-wrap: wrap;
-            gap: 10px;
+            gap: clamp(16px, 2vw, 22px);
             min-height: auto;
         }
 
@@ -425,10 +425,19 @@
             display: none !important;
         }
 
+        .status-top-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: clamp(12px, 2vw, 16px);
+            flex-wrap: wrap;
+        }
+
         .status-left {
             display: flex;
             align-items: center;
             gap: 20px;
+            flex-wrap: wrap;
         }
 
         .avatar-badge {
@@ -479,6 +488,34 @@
             margin: 0;
         }
 
+        .status-summary {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(130px, 1fr));
+            gap: clamp(10px, 1vw, 14px);
+            width: 100%;
+        }
+
+        .status-summary-item {
+            background: rgba(232, 215, 185, 0.95);
+            border: 2px solid #C89B3C;
+            border-radius: 18px;
+            padding: clamp(10px, 1.5vw, 14px);
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            color: #4E2E1E;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.6);
+        }
+
+        .status-summary-label {
+            font-size: clamp(9px, 1.5vw, 11px);
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #4E2E1E;
+            opacity: 0.8;
+            letter-spacing: 0.5px;
+        }
+
         #current-loc {
             font-weight: bold;
             font-size: clamp(12px, 3vw, 16px);
@@ -488,6 +525,7 @@
 
         .stamina-info {
             text-align: right;
+            min-width: 140px;
         }
 
         .stamina-label {
@@ -506,12 +544,125 @@
 
         .game-main {
             flex-grow: 1;
-            display: flex;
-            align-items: center;
+            display: grid;
+            grid-template-columns: minmax(280px, 1fr) minmax(320px, 1.4fr);
+            gap: clamp(20px, 2vw, 28px);
+            align-items: start;
             justify-content: center;
-            padding: clamp(8px, 2vw, 20px);
+            padding: clamp(12px, 2vw, 24px);
             background: linear-gradient(135deg, #C89B3C 0%, #F6EBD3 50%, #E8D7B9 100%);
             position: relative;
+            width: 100%;
+        }
+
+        .game-board-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+
+        @media (max-width: 1023px) {
+            .game-main {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+            .game-panel {
+                max-width: 100%;
+            }
+            .status-summary {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .game-panel {
+            display: flex;
+            flex-direction: column;
+            gap: clamp(18px, 2vw, 24px);
+            width: 100%;
+            max-width: 360px;
+            align-self: start;
+        }
+
+        .panel-card {
+            background: linear-gradient(135deg, #F6EBD3 0%, #E8D7B9 100%);
+            border: clamp(3px, 0.5vw, 5px) solid #C89B3C;
+            border-radius: clamp(16px, 2vw, 22px);
+            padding: clamp(16px, 2vw, 20px);
+            box-shadow: 0 10px 24px rgba(0,0,0,0.18);
+            display: flex;
+            flex-direction: column;
+            gap: clamp(12px, 1.4vw, 16px);
+        }
+
+        .panel-card h2,
+        .panel-card h3 {
+            margin: 0;
+            font-size: clamp(18px, 3vw, 22px);
+            color: #4E2E1E;
+        }
+
+        .panel-card p {
+            margin: 0;
+            line-height: 1.6;
+            color: #4E2E1E;
+        }
+
+        .panel-metrics {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: clamp(10px, 1vw, 14px);
+        }
+
+        .metric-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: clamp(10px, 1vw, 12px);
+            background: rgba(255,255,255,0.8);
+            border-radius: 12px;
+            border: 1px solid rgba(200,155,60,0.35);
+        }
+
+        .metric-row span {
+            font-size: clamp(12px, 2vw, 14px);
+            color: #4E2E1E;
+            font-weight: 700;
+        }
+
+        .metric-row strong {
+            font-size: clamp(14px, 2vw, 16px);
+            color: #4E2E1E;
+        }
+
+        .panel-tip-card {
+            background: rgba(255,255,255,0.92);
+        }
+
+        .center-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+
+        .control-group {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            bottom: auto;
+            right: auto;
+            margin: 0 auto;
+            z-index: 1;
+        }
+
+        .btn-dir-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: clamp(8px, 2vw, 12px);
+            width: fit-content;
         }
 
         .monopoly-board {
@@ -2142,40 +2293,75 @@
 
     <!-- STATUS BAR -->
     <header id="top-status" class="status-bar hidden">
-        <div class="status-left">
-            <div class="avatar-badge">
-                <div id="status-avatar"></div>
-                <div class="player-info">
-                    <span class="player-name" id="display-player-name"></span>
-                    <span class="player-title">Pecinta Musik Nusantara</span>
+        <div class="status-top-row">
+            <div class="status-left">
+                <div class="avatar-badge">
+                    <div id="status-avatar"></div>
+                    <div class="player-info">
+                        <span class="player-name" id="display-player-name"></span>
+                        <span class="player-title">Pecinta Musik Nusantara</span>
+                    </div>
+                </div>
+                <div class="location-info">
+                    <div class="location-label">Lokasi</div>
+                    <div id="current-loc">-</div>
                 </div>
             </div>
-            <div class="location-info">
-                <div class="location-label">Lokasi</div>
-                <div id="current-loc">-</div>
+            <div class="stamina-info">
+                <div class="stamina-label">Stamina</div>
+                <div id="life-icons">❤️❤️❤️❤️❤️</div>
             </div>
         </div>
-        <div class="stamina-info">
-            <div class="stamina-label">Stamina</div>
-            <div id="life-icons">❤️❤️❤️❤️❤️</div>
+        <div class="status-summary">
+            <div class="status-summary-item">
+                <span class="status-summary-label">Nama Sekolah</span>
+                <strong id="display-school-name">-</strong>
+            </div>
+            <div class="status-summary-item">
+                <span class="status-summary-label">Progress</span>
+                <strong id="visited-count">0 / 16 Kota</strong>
+            </div>
+            <div class="status-summary-item">
+                <span class="status-summary-label">Skor</span>
+                <strong id="score-value">0</strong>
+            </div>
+            <div class="status-summary-item">
+                <span class="status-summary-label">Jumlah Kota</span>
+                <strong id="total-cities">16</strong>
+            </div>
         </div>
     </header>
 
     <!-- GAME BOARD -->
     <main class="game-main">
-        <div id="board" class="monopoly-board">
-            <div class="center-area">
-                <img src="https://raw.githubusercontent.com/riyanarahman320/26/main/BANDUNG.png" alt="Resonance Odyssey" class="center-image">
+        <div class="game-board-wrapper">
+            <div id="board" class="monopoly-board">
+                <div class="center-area">
+                    <img src="https://raw.githubusercontent.com/riyanarahman320/26/main/BANDUNG.png" alt="Resonance Odyssey" class="center-image">
+                </div>
+                <div id="player-token" class="player-token hidden"></div>
             </div>
-            <div id="player-token" class="player-token hidden"></div>
         </div>
 
-        <!-- Control Button (kanan saja) -->
-        <div id="move-btn-ctrl" class="control-group hidden">
-            <div class="btn-dir-container">
-                <button class="btn-dir" id="btn-right" onclick="handleRight()">▶</button>
+        <aside class="game-panel">
+            <div class="panel-card panel-mission-card">
+                <h2>Misi Saat Ini</h2>
+                <p>Kunjungi kota berikutnya dan jawab pertanyaan musik Nusantara.</p>
+                <div class="panel-metrics">
+                    <div class="metric-row"><span>Progress</span><strong id="panel-progress">0 / 16 Kota</strong></div>
+                    <div class="metric-row"><span>Skor</span><strong id="panel-score">0</strong></div>
+                </div>
+                <div id="move-btn-ctrl" class="control-group hidden">
+                    <div class="btn-dir-container">
+                        <button class="btn-dir" id="btn-right" onclick="handleRight()">▶</button>
+                    </div>
+                </div>
             </div>
-        </div>
+            <div class="panel-card panel-tip-card">
+                <h3>Petunjuk Singkat</h3>
+                <p>Gunakan tombol arah untuk bergerak ke kota berikutnya dan kumpulkan pengetahuan musik Nusantara.</p>
+            </div>
+        </aside>
     </main>
 
     <!-- AREA PREVIEW OVERLAY -->
@@ -2402,6 +2588,7 @@
             autoPaused: false,
             autoTimer: null,
             currentAudio: null,
+            score: 0,
             answers: [], // Array untuk track jawaban per soal: {questionId, correct, answer}
             card3Answered: false,
             card4Answered: false
@@ -2593,6 +2780,34 @@
             }
         }
 
+        function updateStatusPanel() {
+            const schoolElement = document.getElementById('display-school-name');
+            const visitedElement = document.getElementById('visited-count');
+            const scoreElement = document.getElementById('score-value');
+            const panelProgress = document.getElementById('panel-progress');
+            const panelScore = document.getElementById('panel-score');
+            const totalCities = document.getElementById('total-cities');
+
+            if (schoolElement) {
+                schoolElement.innerText = state.schoolName || 'Sekolah Nusantara';
+            }
+            if (visitedElement) {
+                visitedElement.innerText = `${state.visited.size} / ${cityData.length} Kota`;
+            }
+            if (panelProgress) {
+                panelProgress.innerText = `${state.visited.size} / ${cityData.length} Kota`;
+            }
+            if (scoreElement) {
+                scoreElement.innerText = state.score;
+            }
+            if (panelScore) {
+                panelScore.innerText = state.score;
+            }
+            if (totalCities) {
+                totalCities.innerText = cityData.length;
+            }
+        }
+
         function showInstructions(charId) {
             state.charId = charId;
             document.getElementById('screen-char').classList.add('hidden');
@@ -2609,6 +2824,7 @@
             
             setPlayerAvatar();
             document.getElementById('display-player-name').innerText = state.playerName;
+            updateStatusPanel();
             
             updateTokenPos();
             updateControlButtons();
@@ -2649,6 +2865,7 @@
             
             document.getElementById('life-icons').innerText = "❤️".repeat(Math.max(0, state.lives));
             document.getElementById('current-loc').innerText = cityData[state.idx].name;
+            updateStatusPanel();
             
             document.querySelectorAll('.tile').forEach(t => t.style.boxShadow = '');
             const currentTile = document.getElementById(`tile-${state.idx}`);
