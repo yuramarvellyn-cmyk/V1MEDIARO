@@ -666,13 +666,14 @@
             width: min(760px, 100%);
             max-width: 760px;
             gap: clamp(16px, 2vw, 24px);
+            margin: 0 auto;
         }
 
         @media (min-width: 1024px) {
             .game-board-wrapper {
-                flex-direction: row;
-                align-items: flex-end;
-                justify-content: flex-end;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
                 gap: clamp(24px, 2vw, 28px);
             }
 
