@@ -1330,6 +1330,52 @@
             background: linear-gradient(135deg, #C89B3C 0%, #E8D7B9 100%);
         }
 
+        /* Halaman Petunjuk Penggunaan */
+        #screen-instructions .content-card {
+            max-width: 720px;
+            width: min(92vw, 720px);
+            padding: clamp(18px, 2vw, 24px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: clamp(14px, 1.5vw, 18px);
+            text-align: center;
+            overflow: visible;
+        }
+
+        #screen-instructions h1 {
+            font-size: clamp(28px, 4vw, 36px);
+            margin-bottom: clamp(8px, 1vw, 12px);
+        }
+
+        #screen-instructions ul {
+            width: 100%;
+            max-width: 650px;
+            margin: 0;
+            padding-inline-start: clamp(18px, 3vw, 26px);
+            text-align: left;
+            line-height: 1.75;
+            display: flex;
+            flex-direction: column;
+            gap: clamp(10px, 1vw, 14px);
+        }
+
+        #screen-instructions ul li {
+            margin: 0;
+        }
+
+        #screen-instructions .btn-gold {
+            width: min(84vw, 520px);
+            max-width: 520px;
+            padding: clamp(14px, 1.4vw, 18px) clamp(20px, 2vw, 26px);
+            margin-top: clamp(10px, 1vw, 12px);
+        }
+
+        #screen-instructions .btn-gold:hover {
+            background: linear-gradient(135deg, #C89B3C 0%, #E8D7B9 100%);
+        }
+
         /* Modal untuk Input Foto dan Tulisan */
         #info-modal {
             display: none;
