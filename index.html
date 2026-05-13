@@ -43,7 +43,7 @@
         @media (min-width: 1024px) {
             body {
                 display: grid;
-                grid-template-columns: 32% 68%;
+                grid-template-columns: 28% 44% 28%;
                 grid-template-rows: 1fr;
                 height: 100vh;
                 overflow: hidden;
@@ -76,6 +76,7 @@
                 width: 100%;
                 height: 100vh;
                 display: flex !important;
+                flex-direction: column;
                 align-items: center;
                 justify-content: center;
                 gap: clamp(24px, 3vw, 32px);
@@ -83,6 +84,26 @@
                 background: linear-gradient(135deg, #C89B3C 0%, #F6EBD3 50%, #E8D7B9 100%);
                 overflow: hidden;
                 position: relative;
+            }
+
+            .game-panel {
+                grid-column: 3;
+                grid-row: 1;
+                width: 100%;
+                height: 100vh;
+                display: flex !important;
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: stretch;
+                background: linear-gradient(180deg, #F6EBD3 0%, #E8D7B9 50%);
+                border-left: 4px solid #C89B3C;
+                padding: clamp(20px, 2vw, 28px);
+                gap: clamp(16px, 2vw, 24px);
+                overflow-y: hidden;
+                position: sticky;
+                top: 0;
+                z-index: 30;
+                box-shadow: inset 8px 0 12px rgba(0,0,0,0.08);
             }
 
             .game-main .monopoly-board {
@@ -115,7 +136,7 @@
                 display: flex;
                 flex-direction: column;
                 justify-content: flex-start;
-                gap: clamp(16px, 2vw, 20px);
+                gap: clamp(12px, 1.5vw, 16px);
                 width: 100%;
             }
 
@@ -227,6 +248,17 @@
                 height: auto;
                 min-height: auto;
                 padding: clamp(16px, 2vw, 20px);
+                order: 2;
+            }
+
+            .game-panel {
+                width: 100%;
+                height: auto;
+                padding: clamp(16px, 2vw, 20px);
+                background: linear-gradient(180deg, #F6EBD3, #E8D7B9);
+                border-left: none;
+                border-top: 4px solid #C89B3C;
+                order: 3;
             }
 
             .status-left {
@@ -670,7 +702,7 @@
             grid-template-columns: repeat(5, 1fr);
             grid-template-rows: repeat(5, 1fr);
             gap: clamp(4px, 1vw, 6px);
-            background: #E8F4F8;
+            background: #F6EBD3;
             padding: clamp(8px, 2vw, 12px);
             border-radius: 15px;
             width: min(95vw, 95vh, 900px);
@@ -686,7 +718,7 @@
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            border: clamp(2px, 0.5vw, 3px) solid #B8D4E8;
+            border: clamp(2px, 0.5vw, 3px) solid #C89B3C;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -738,7 +770,7 @@
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            border: 3px solid #B8D4E8;
+            border: 3px solid #C89B3C;
             box-shadow: inset 0 1px 0 rgba(255,255,255,0.5), 0 2px 5px rgba(0,0,0,0.2);
             border-radius: 4px;
         }
@@ -789,6 +821,13 @@
 
         .control-group.hidden {
             display: none !important;
+        }
+
+        .game-board-wrapper .control-group {
+            position: static;
+            margin-top: clamp(16px, 2vw, 24px);
+            justify-content: center;
+            width: 100%;
         }
 
         @media (min-width: 1024px) {
@@ -2341,28 +2380,24 @@
                 </div>
                 <div id="player-token" class="player-token hidden"></div>
             </div>
+            <div id="move-btn-ctrl" class="control-group hidden mt-4">
+                <div class="btn-dir-container">
+                    <button class="btn-dir" id="btn-right" onclick="handleRight()">▶</button>
+                </div>
+            </div>
         </div>
-
-        <aside class="game-panel">
-            <div class="panel-card panel-mission-card">
-                <h2>Misi Saat Ini</h2>
-                <p>Kunjungi kota berikutnya dan jawab pertanyaan musik Nusantara.</p>
-                <div class="panel-metrics">
-                    <div class="metric-row"><span>Progress</span><strong id="panel-progress">0 / 16 Kota</strong></div>
-                    <div class="metric-row"><span>Skor</span><strong id="panel-score">0</strong></div>
-                </div>
-                <div id="move-btn-ctrl" class="control-group hidden">
-                    <div class="btn-dir-container">
-                        <button class="btn-dir" id="btn-right" onclick="handleRight()">▶</button>
-                    </div>
-                </div>
-            </div>
-            <div class="panel-card panel-tip-card">
-                <h3>Petunjuk Singkat</h3>
-                <p>Gunakan tombol arah untuk bergerak ke kota berikutnya dan kumpulkan pengetahuan musik Nusantara.</p>
-            </div>
-        </aside>
     </main>
+
+    <aside class="game-panel">
+        <div class="panel-card panel-mission-card">
+            <h2>Misi Saat Ini</h2>
+            <p>Kunjungi kota berikutnya dan jawab pertanyaan musik Nusantara.</p>
+            <div class="panel-metrics">
+                <div class="metric-row"><span>Progress</span><strong id="panel-progress">0 / 16 Kota</strong></div>
+                <div class="metric-row"><span>Skor</span><strong id="panel-score">0</strong></div>
+            </div>
+        </div>
+    </aside>
 
     <!-- AREA PREVIEW OVERLAY -->
     <div id="area-preview-overlay" class="screen-overlay">
