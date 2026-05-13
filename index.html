@@ -1154,22 +1154,28 @@
 
         .cards-container {
             display: grid;
-            grid-template-columns: repeat(2, minmax(180px, 1fr));
+            grid-template-columns: repeat(4, minmax(160px, 1fr));
             gap: 12px;
             margin: 14px 0 0;
             width: 100%;
-            max-width: 760px;
+            max-width: 1200px;
+            align-items: stretch;
+        }
+
+        #quiz-cards-overlay .content-card {
+            max-width: min(95vw, 1200px);
+            padding: clamp(12px, 1.5vw, 16px);
         }
 
         .card {
             background: linear-gradient(135deg, #F6EBD3 0%, #E8D7B9 100%);
             border: 3px solid #C89B3C;
             border-radius: 15px;
-            padding: 14px;
+            padding: 12px;
             text-align: center;
             box-shadow: 0 8px 20px rgba(0,0,0,0.15);
             transition: transform 0.3s ease;
-            min-height: 140px;
+            min-height: 120px;
             display: flex;
             flex-direction: column;
             justify-content: center;
