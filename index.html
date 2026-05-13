@@ -1031,9 +1031,45 @@
         }
 
         /* Quiz Overlay */
-        #area-preview-overlay {
+        #region-notification-overlay {
             display: none;
+            z-index: 95;
         }
+
+        #region-notification-overlay.show {
+            display: flex !important;
+        }
+
+        #region-notification-overlay .content-card {
+            max-width: min(95vw, 700px);
+            padding: clamp(20px, 3vw, 28px);
+        }
+
+        #region-title {
+            margin: 0 0 clamp(16px, 3vw, 24px);
+        }
+
+        #region-image {
+            width: 100%;
+            border-radius: 14px;
+            object-fit: cover;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+        }
+
+        #region-info-box {
+            text-align: center;
+        }
+
+        #region-name {
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        #region-description {
+            opacity: 0.85;
+        }
+
+        /* Quiz Overlay */
 
         #area-preview-overlay.show {
             display: flex !important;
@@ -2548,6 +2584,7 @@
             <div id="board" class="monopoly-board">
                 <div class="center-area">
                     <img src="https://raw.githubusercontent.com/riyanarahman320/26/main/BANDUNG.png" alt="Resonance Odyssey" class="center-image">
+                    <h3 class="center-title" style="margin-top: 8px; font-size: clamp(14px, 3vw, 20px);">Mulai</h3>
                 </div>
                 <div id="player-token" class="player-token hidden"></div>
             </div>
@@ -2565,8 +2602,21 @@
         </div>
     </aside>
 
+    <!-- REGION NOTIFICATION MODAL -->
+    <div id="region-notification-overlay" class="screen-overlay hidden">
+        <div class="content-card">
+            <h2 id="region-title" style="font-size: clamp(32px, 8vw, 48px); margin-bottom: clamp(20px, 4vw, 30px);">📍 WILAYAH BARU</h2>
+            <img id="region-image" src="" alt="Region" class="preview-image" style="max-height: clamp(200px, 40vh, 400px); margin-bottom: clamp(20px, 3vw, 30px); border-radius: 12px; transition: all 0.5s ease;">
+            <div id="region-info-box" style="background: rgba(200, 155, 60, 0.1); border: 2px solid #C89B3C; border-radius: 16px; padding: clamp(16px, 3vw, 24px); margin-bottom: clamp(20px, 3vw, 30px);">
+                <p id="region-name" style="font-size: clamp(20px, 4vw, 28px); font-weight: 900; color: #4E2E1E; margin: 0; margin-bottom: 10px;"></p>
+                <p id="region-description" style="font-size: clamp(13px, 2.5vw, 16px); color: #4E2E1E; margin: 0; line-height: 1.5;"></p>
+            </div>
+            <button class="btn-gold" id="region-continue-btn" onclick="closeRegionNotification()">LANJUT</button>
+        </div>
+    </div>
+
     <!-- AREA PREVIEW OVERLAY -->
-    <div id="area-preview-overlay" class="screen-overlay">
+    <div id="area-preview-overlay" class="screen-overlay hidden">
         <div class="content-card">
             <img id="preview-image" src="" alt="Preview Area" class="preview-image">
             <h2 id="preview-title"></h2>
@@ -2700,22 +2750,22 @@
         };
 
         const cityData = [
-            { name: "Mulai", side: "corner", music: "" },
-            { name: "Jawa Barat", side: "side-top", music: "https://raw.githubusercontent.com/riyanarahman320/c2FraXQgdGF1dSwgZ2EgYWRpbCByYXNhbnlh/b7a423f967be69ca19239d650b05b841ddcb5158/Manuk%20Dadali%20(Angklung%20version%20cover)%20Arr%20(mp3cut.net).mp3" },
-            { name: "Nusa Tenggara Timur", side: "side-top", music: "https://raw.githubusercontent.com/riyanarahman320/c2FraXQgdGF1dSwgZ2EgYWRpbCByYXNhbnlh/b7a423f967be69ca19239d650b05b841ddcb5158/GAMELAN.mp3" },
-            { name: "Aceh", side: "side-top", image: "https://raw.githubusercontent.com/riyanarahman320/c2FraXQgdGF1dSwgZ2EgYWRpbCByYXNhbnlh/0b044c022fd512bf01f22ef1dc2474e0893f62f7/JOGJA.png", music: "https://raw.githubusercontent.com/riyanarahman320/c2FraXQgdGF1dSwgZ2EgYWRpbCByYXNhbnlh/0b044c022fd512bf01f22ef1dc2474e0893f62f7/SITAR.mp3" },
+            { name: "Mulai", side: "corner", music: "", image: "https://raw.githubusercontent.com/riyanarahman320/26/main/BANDUNG.png" },
+            { name: "Jawa Barat", side: "side-top", music: "https://raw.githubusercontent.com/riyanarahman320/c2FraXQgdGF1dSwgZ2EgYWRpbCByYXNhbnlh/b7a423f967be69ca19239d650b05b841ddcb5158/Manuk%20Dadali%20(Angklung%20version%20cover)%20Arr%20(mp3cut.net).mp3", image: "https://raw.githubusercontent.com/riyanarahman320/26/main/BANDUNG.png" },
+            { name: "Nusa Tenggara Timur", side: "side-top", music: "https://raw.githubusercontent.com/riyanarahman320/c2FraXQgdGF1dSwgZ2EgYWRpbCByYXNhbnlh/b7a423f967be69ca19239d650b05b841ddcb5158/GAMELAN.mp3", image: "https://raw.githubusercontent.com/AYAA-lab/resonance-odyssey/0e31389538a02c42684025cbc04d8fb04add8b76/JAKARTA.png" },
+            { name: "Aceh", side: "side-top", image: "https://raw.githubusercontent.com/AYAA-lab/resonance-odyssey/0e31389538a02c42684025cbc04d8fb04add8b76/ACEH.png", music: "https://raw.githubusercontent.com/riyanarahman320/c2FraXQgdGF1dSwgZ2EgYWRpbCByYXNhbnlh/0b044c022fd512bf01f22ef1dc2474e0893f62f7/SITAR.mp3" },
             { name: "Sulawesi Utara", side: "corner", image: "https://raw.githubusercontent.com/riyanarahman320/c2FraXQgdGF1dSwgZ2EgYWRpbCByYXNhbnlh/e57ec7031a0fdba39923804793d4528ed2617d21/BALI.png", music: "https://raw.githubusercontent.com/riyanarahman320/c2FraXQgdGF1dSwgZ2EgYWRpbCByYXNhbnlh/e57ec7031a0fdba39923804793d4528ed2617d21/Rindik%2C%20the%20Balinese%20musical%20instrument.mp3" },
-            { name: "Maluku", side: "side-right", music: "" },
+            { name: "Maluku", side: "side-right", music: "", image: "https://raw.githubusercontent.com/AYAA-lab/resonance-odyssey/0e31389538a02c42684025cbc04d8fb04add8b76/JAKARTA.png" },
             { name: "Kepulauan Riau", side: "side-right", image: "https://raw.githubusercontent.com/AYAA-lab/resonance-odyssey/0e31389538a02c42684025cbc04d8fb04add8b76/ACEH.png", music: "https://raw.githubusercontent.com/AYAA-lab/Game-Resonance-Odyssey/main/freesound_community-seruling-sunda-34162.mp3" },
-            { name: "Sumatera Utara", side: "side-right", music: "" },
-            { name: "Kalimantan Barat", side: "corner", music: "" },
-            { name: "Sulawesi Selatan / Toraja", side: "side-bottom", music: "" },
-            { name: "Lampung", side: "side-bottom", music: "" },
-            { name: "Jawa Timur", side: "side-bottom", music: "" },
-            { name: "Jambi", side: "corner", music: "" },
-            { name: "Sumatera Barat", side: "side-left", music: "" },
-            { name: "Sumatera Selatan", side: "side-left", music: "" },
-            { name: "Bali", side: "side-left", image: "https://raw.githubusercontent.com/AYAA-lab/resonance-odyssey/0e31389538a02c42684025cbc04d8fb04add8b76/PAPUA.png", music: "https://raw.githubusercontent.com/AYAA-lab/Game-Resonance-Odyssey/main/freesound_community-seruling-sunda-34162.mp3" }
+            { name: "Sumatera Utara", side: "side-right", music: "", image: "https://raw.githubusercontent.com/riyanarahman320/26/main/BANDUNG.png" },
+            { name: "Kalimantan Barat", side: "corner", music: "", image: "https://raw.githubusercontent.com/AYAA-lab/resonance-odyssey/0e31389538a02c42684025cbc04d8fb04add8b76/JAKARTA.png" },
+            { name: "Sulawesi Selatan / Toraja", side: "side-bottom", music: "", image: "https://raw.githubusercontent.com/AYAA-lab/resonance-odyssey/0e31389538a02c42684025cbc04d8fb04add8b76/JAKARTA.png" },
+            { name: "Lampung", side: "side-bottom", music: "", image: "https://raw.githubusercontent.com/AYAA-lab/resonance-odyssey/0e31389538a02c42684025cbc04d8fb04add8b76/JAKARTA.png" },
+            { name: "Jawa Timur", side: "side-bottom", music: "", image: "https://raw.githubusercontent.com/AYAA-lab/resonance-odyssey/0e31389538a02c42684025cbc04d8fb04add8b76/JAKARTA.png" },
+            { name: "Jambi", side: "corner", music: "", image: "https://raw.githubusercontent.com/riyanarahman320/26/main/BANDUNG.png" },
+            { name: "Sumatera Barat", side: "side-left", music: "", image: "https://raw.githubusercontent.com/AYAA-lab/resonance-odyssey/0e31389538a02c42684025cbc04d8fb04add8b76/JAKARTA.png" },
+            { name: "Sumatera Selatan", side: "side-left", music: "", image: "https://raw.githubusercontent.com/AYAA-lab/resonance-odyssey/0e31389538a02c42684025cbc04d8fb04add8b76/JAKARTA.png" },
+            { name: "Bali", side: "side-left", image: "https://raw.githubusercontent.com/riyanarahman320/c2FraXQgdGF1dSwgZ2EgYWRpbCByYXNhbnlh/e57ec7031a0fdba39923804793d4528ed2617d21/BALI.png", music: "https://raw.githubusercontent.com/AYAA-lab/Game-Resonance-Odyssey/main/freesound_community-seruling-sunda-34162.mp3" }
         ];
 
         const cityQuestions = {
@@ -3103,6 +3153,22 @@
             document.getElementById('current-loc').innerText = cityData[state.idx].name;
             updateStatusPanel();
             
+            // Update gambar di tengah board sesuai wilayah yang sedang diinjak
+            const centerImageEl = document.querySelector('.center-image');
+            const centerTitleEl = document.querySelector('.center-title');
+            if (centerImageEl) {
+                const newImage = cityData[state.idx].image || DEFAULT_PREVIEW_IMAGE;
+                centerImageEl.style.opacity = '0.5';
+                centerImageEl.style.transition = 'all 0.4s ease';
+                setTimeout(() => {
+                    centerImageEl.src = newImage;
+                    centerImageEl.style.opacity = '1';
+                }, 200);
+            }
+            if (centerTitleEl) {
+                centerTitleEl.innerText = cityData[state.idx].name;
+            }
+            
             document.querySelectorAll('.tile').forEach(t => t.style.boxShadow = '');
             const currentTile = document.getElementById(`tile-${state.idx}`);
             if (currentTile) {
@@ -3416,12 +3482,50 @@
 
         function showAreaPreview() {
             state.autoPaused = true;
+            showRegionNotification();
+        }
+
+        function showRegionNotification() {
+            const city = cityData[state.idx];
+            const descriptions = {
+                1: "Musik tradisional Jawa Barat kaya dengan alat musik bambu yang indah.",
+                2: "Nusa Tenggara Timur memiliki warisan musik gamelan yang kaya.",
+                3: "Aceh terkenal dengan musik dan alat musik tradisional yang unik.",
+                4: "Sulawesi Utara memiliki tradisi musik yang megah dan penuh energi.",
+                5: "Maluku dikenal sebagai pusat kerajinan dan musik tradisional.",
+                6: "Kepulauan Riau memiliki musik tradisional yang dinamis.",
+                7: "Sumatera Utara kaya akan warisan musik tradisional yang beragam.",
+                8: "Kalimantan Barat memiliki musik tradisional yang unik dan menarik.",
+                9: "Sulawesi Selatan / Toraja terkenal dengan tradisi musik yang megah.",
+                10: "Lampung memiliki musik tradisional yang penuh makna budaya.",
+                11: "Jawa Timur dikenal dengan musik tradisional yang lembut dan indah.",
+                12: "Jambi memiliki warisan musik tradisional yang kaya.",
+                13: "Sumatera Barat terkenal dengan musik tradisional yang energik.",
+                14: "Sumatera Selatan memiliki musik tradisional yang penuh warna.",
+                15: "Bali terkenal dengan musik kecak dan gamelan yang ekspresif."
+            };
+
+            const regionOverlay = document.getElementById('region-notification-overlay');
+            document.getElementById('region-title').innerText = `📍 WILAYAH: ${city.name.toUpperCase()}`;
+            document.getElementById('region-image').src = city.image || DEFAULT_PREVIEW_IMAGE;
+            document.getElementById('region-name').innerText = city.name;
+            document.getElementById('region-description').innerText = descriptions[state.idx] || "Kunjungi wilayah yang penuh dengan warisan musik tradisional.";
+            
+            regionOverlay.classList.remove('hidden');
+            regionOverlay.classList.add('show');
+        }
+
+        function closeRegionNotification() {
+            const regionOverlay = document.getElementById('region-notification-overlay');
+            regionOverlay.classList.remove('show');
+            regionOverlay.classList.add('hidden');
             openAdventureOverlay();
         }
 
         function closeAreaPreview() {
             const overlay = document.getElementById('area-preview-overlay');
             overlay.classList.remove('show');
+            overlay.classList.add('hidden');
             openAdventureOverlay();
         }
 
