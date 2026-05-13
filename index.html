@@ -741,7 +741,9 @@
         }
 
         .panel-metrics {
-            displ8px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
         }
 
         .metric-row {
@@ -835,11 +837,18 @@
             word-break: keep-all;
             overflow-wrap: break-word;
             white-space: normal;
+            cursor: default;
         }
 
-        .tile:hover {
+        .tile.clickable:hover {
             transform: translateY(-3px);
             box-shadow: inset 0 1px 0 rgba(255,255,255,0.5), 0 6px 15px rgba(126, 200, 227, 0.4);
+        }
+
+        .tile.active-target {
+            border-color: #fbbf24;
+            animation: pulse 1.8s ease-in-out infinite;
+            box-shadow: 0 0 18px rgba(251, 191, 36, 0.65), inset 0 0 18px rgba(251, 191, 36, 0.25);
         }
 
         .tile span {
@@ -2403,11 +2412,11 @@
         <div class="content-card">
             <h2>ATURAN PERMAINAN</h2>
             <ul>
-                <li>Gunakan tombol arah untuk berjalan mengelilingi Nusantara.</li>
+                    <li>Klik kotak kota berikutnya untuk bergerak di peta.</li>
                 <li>Setiap wilayah baru akan memberikan tantangan musik daerah tersebut.</li>
                 <li>Jawaban benar menjaga staminamu, jawaban salah akan menguranginya.</li>
                 <li>Tujuanmu adalah mengunjungi seluruh wilayah sebelum stamina habis.</li>
-                <li>Karakter akan berjalan santai mengikuti arahanmu.</li>
+                <li>Karakter akan berjalan santai mengikuti langkahmu.</li>
             </ul>
             <button class="btn-gold" onclick="showCharSelect()">NEXT (Pilih Karakter)</button>
         </div>
@@ -2426,7 +2435,7 @@
         <div class="content-card">
             <h1>Petunjuk Penggunaan Game</h1>
             <ul style="text-align: left; margin: clamp(10px, 2vw, 30px) 0; line-height: 1.6;">
-                <li><strong>Gerak:</strong> Gunakan tombol panah kanan untuk bergerak maju di peta.</li>
+                <li><strong>Gerak:</strong> Klik kotak kota berikutnya untuk bergerak di peta.</li>
                 <li><strong>Kunjungi Kota:</strong> Setiap kota memiliki pertanyaan musik Nusantara yang harus dijawab.</li>
                 <li><strong>Jawab Soal:</strong> Pilih jawaban yang benar untuk mendapatkan poin dan melanjutkan perjalanan.</li>
                 <li><strong>Stamina:</strong> Perhatikan stamina Anda, jangan sampai habis!</li>
@@ -2485,11 +2494,6 @@
                     <img src="https://raw.githubusercontent.com/riyanarahman320/26/main/BANDUNG.png" alt="Resonance Odyssey" class="center-image">
                 </div>
                 <div id="player-token" class="player-token hidden"></div>
-            </div>
-            <div id="move-btn-ctrl" class="control-group hidden mt-4">
-                <div class="btn-dir-container">
-                    <button class="btn-dir" id="btn-right" onclick="handleRight()">▶</button>
-                </div>
             </div>
         </div>
     </main>
@@ -2961,8 +2965,6 @@
             
             document.getElementById('screen-instructions').classList.add('hidden');
             document.getElementById('top-status').classList.remove('hidden');
-            document.getElementById('move-btn-ctrl').classList.remove('hidden');
-            
             setPlayerAvatar();
             document.getElementById('display-player-name').innerText = state.playerName;
             updateStatusPanel();
@@ -2981,6 +2983,7 @@
                     const tile = document.createElement('div');
                     tile.className = `tile ${city.side === 'corner' ? 'corner-tile' : city.side}`;
                     tile.id = `tile-${i}`;
+                    tile.dataset.index = i;
                     tile.style.gridRow = gridCoords[i][0];
                     tile.style.gridColumn = gridCoords[i][1];
                     let inner = `<span style="z-index: 10;">${city.name}</span>`;
@@ -2991,6 +2994,42 @@
 
                     tile.innerHTML = inner;
                     board.appendChild(tile);
+            });
+        }
+
+        function getNextTileIndex() {
+            if (!state.active || state.isMoving || state.idx >= cityData.length - 1) return null;
+            return state.idx + 1;
+        }
+
+        function updateBoardInteraction() {
+            const board = document.getElementById('board');
+            if (!board) return;
+            const nextIndex = getNextTileIndex();
+
+            board.querySelectorAll('.tile').forEach(tile => {
+                tile.classList.remove('clickable', 'active-target');
+            });
+
+            if (!nextIndex) return;
+
+            const nextTile = document.getElementById(`tile-${nextIndex}`);
+            if (nextTile) {
+                nextTile.classList.add('clickable', 'active-target');
+            }
+        }
+
+        const gameBoard = document.getElementById('board');
+        if (gameBoard) {
+            gameBoard.addEventListener('click', (event) => {
+                const tile = event.target.closest('.tile.clickable');
+                if (!tile) return;
+
+                const tileIndex = Number(tile.dataset.index);
+                const nextIndex = getNextTileIndex();
+                if (nextIndex !== null && tileIndex === nextIndex && !state.isMoving) {
+                    moveToNextTile();
+                }
             });
         }
 
@@ -3013,6 +3052,7 @@
             if (currentTile) {
                 currentTile.style.boxShadow = '0 0 15px #ec4899, inset 0 0 15px rgba(236, 72, 153, 0.3)';
             }
+            updateBoardInteraction();
         }
 
         function handleMove(dir) {
@@ -3644,9 +3684,7 @@
                     e.preventDefault();
                     moveAdventurePlayer(e.key === 'ArrowRight' ? 'right' : 'left');
                 }
-                return;
             }
-            if (e.key === "ArrowRight") handleMove('right');
         });
 
         initBoard();
