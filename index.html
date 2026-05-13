@@ -1035,12 +1035,11 @@
             display: none;
             position: fixed;
             inset: 0;
-            background: rgba(0, 0, 0, 0.68);
-            backdrop-filter: blur(10px);
+            background: rgba(0, 0, 0, 0.48);
             z-index: 999;
             align-items: center;
             justify-content: center;
-            padding: 18px;
+            padding: 16px;
         }
 
         #region-notification-overlay.show {
@@ -1048,48 +1047,32 @@
         }
 
         #region-notification-overlay .content-card {
-            max-width: min(95vw, 420px);
+            max-width: min(95vw, 520px);
             width: 100%;
             padding: clamp(20px, 3vw, 28px);
             background: rgba(255, 255, 255, 0.98);
             border: 1px solid rgba(76, 35, 17, 0.12);
-            box-shadow: 0 28px 70px rgba(0, 0, 0, 0.22);
-            border-radius: 28px;
-            display: grid;
-            justify-items: center;
-            gap: clamp(14px, 2.5vw, 20px);
-            animation: popIn 0.26s cubic-bezier(0.22, 1, 0.36, 1);
+            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.18);
+            border-radius: 26px;
         }
 
         #region-title {
-            margin: 0;
+            margin: 0 0 clamp(16px, 3vw, 24px);
             text-transform: uppercase;
             letter-spacing: 0.12em;
-            text-align: center;
         }
 
         #region-image {
-            width: min(360px, 100%);
-            aspect-ratio: 1 / 1;
-            border-radius: 22px;
+            width: 100%;
+            border-radius: 18px;
             object-fit: cover;
-            box-shadow: 0 18px 36px rgba(0,0,0,0.16);
+            box-shadow: 0 16px 34px rgba(0,0,0,0.16);
+            margin-bottom: clamp(18px, 3vw, 24px);
         }
 
         #region-info-box {
-            width: min(360px, 100%);
-            aspect-ratio: 1 / 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
             text-align: center;
-            margin-bottom: 0;
-            padding: clamp(18px, 2.5vw, 24px);
-            border-radius: 22px;
-            background: rgba(255,255,255,0.95);
-            border: 2px solid rgba(200,155,60,0.22);
-            box-shadow: inset 0 0 10px rgba(200,155,60,0.08);
+            margin-bottom: clamp(18px, 3vw, 24px);
         }
 
         #region-name {
@@ -1106,45 +1089,7 @@
         }
 
         #region-continue-btn {
-            width: 100%;
-            max-width: 280px;
-            margin-top: 6px;
-        }
-
-        @keyframes popIn {
-            from {
-                opacity: 0;
-                transform: scale(0.92);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }.08em;
-            margin-bottom: 10px;
-            font-size: clamp(18px, 3.5vw, 24px);
-        }
-
-        #region-description {
-            opacity: 0.9;
-            line-height: 1.6;
-            margin: 0;
-        }
-
-        #region-continue-btn {
-            width: 100%;
-            max-width: 280px;
-            margin-top: 6px;
-        }
-
-        @keyframes popIn {
-            from {
-                opacity: 0;
-                transform: scale(0.92);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
+            margin-top: 10px;
         }
 
         /* Quiz Overlay */
@@ -1490,64 +1435,59 @@
             font-weight: 900;
             margin-bottom: clamp(6px, 1.5vw, 10px);
         }
-55, 255, 255, 0.95);
-            border: 2px solid #C89B3C;
-            border-radius: 22px;
-            padding: 14px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            box-shadow: inset 0 2px 8px rgba(0,0,0,0.12);
-            pointer-events: none;
-            z-index: 5;
-            overflow: hidden;
-            width: min(220px, 100%);
-            aspect-ratio: 1 / 1;
-        }
 
-        .center-image {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 18px;
-        }
-
-        .center-title {
-            color: #4E2E1E;
-            font-weight: 900;
-            font-size: clamp(16px, 3.5vw, 24px);
-            font-style: italic;
-            line-height: 1.1;
-            margin: 12px 0 0;
-            text-align: center12px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            box-shadow: inset 0 2px 8px rgba(0,0,0,0.12);
-            pointer-events: none;
-            z-index: 5;
-            overflow: hidden;
-            width: min(220px, 100%);
-            aspect-ratio: 1 / 1;
-        }
-
-        .center-image {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 18px;
-        }
-
-        .center-title {
-            color: #4E2E1E;
-            font-weight: 900;
-            font-size: clamp(16px, 3.5vw, 24px);
-            font-style: italic;
-            line-height: 1.1;
-            margin-top: 12px;
+        #feedback-message {
+            font-weight: bold;
+            padding: 0 clamp(10px, 2vw, 20px);
             text-align: center;
+            font-size: clamp(12px, 2.5vw, 15px);
+            line-height: 1.3;
+        }
+
+        .shake { animation: shake 0.4s; }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        .center-area {
+            grid-area: 2 / 2 / 5 / 5;
+            background: rgba(245, 235, 220, 0.85);
+            border: 2px solid #C89B3C;
+            border-radius: 6px;
+            padding: 8px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+            pointer-events: none;
+            z-index: 5;
+            overflow: hidden;
+        }
+
+        .center-image {
+            width: 70%;
+            max-width: 180px;
+            height: auto;
+            object-fit: contain;
+            border-radius: 4px;
+        }
+
+        .center-title {
+            color: #4E2E1E;
+            font-weight: 900;
+            font-size: clamp(18px, 4.5vw, 28px);
+            font-style: italic;
+            line-height: 1.1;
             margin: 0;
         }
 
@@ -2633,11 +2573,11 @@
             <div class="status-metric-row">
                 <div class="status-card location-info">
                     <div class="location-label">Lokasi</div>
-                    <div id="current-loc">-</div>28px, 6vw, 36px); margin-bottom: clamp(16px, 3vw, 22px);">📍 WILAYAH BARU</h2>
-            <img id="region-image" src="" alt="Region" class="preview-image">
-            <div id="region-info-box">
-                <p id="region-name"></p>
-                <p id="region-description
+                    <div id="current-loc">-</div>
+                </div>
+                <div class="status-card stamina-info">
+                    <div class="stamina-label">Stamina</div>
+                    <div id="life-icons">❤️❤️❤️❤️❤️</div>
                 </div>
             </div>
         </div>
@@ -2689,10 +2629,10 @@
     <div id="region-notification-overlay" class="screen-overlay hidden">
         <div class="content-card">
             <h2 id="region-title" style="font-size: clamp(32px, 8vw, 48px); margin-bottom: clamp(20px, 4vw, 30px);">📍 WILAYAH BARU</h2>
-            <img id="region-image" src="" alt="Region" class="preview-image">
-            <div id="region-info-box">
+            <img id="region-image" src="" alt="Region" class="preview-image" style="max-height: clamp(200px, 40vh, 400px); margin-bottom: clamp(20px, 3vw, 30px); border-radius: 12px; transition: all 0.5s ease;">
+            <div id="region-info-box" style="background: rgba(200, 155, 60, 0.1); border: 2px solid #C89B3C; border-radius: 16px; padding: clamp(16px, 3vw, 24px); margin-bottom: clamp(20px, 3vw, 30px);">
                 <p id="region-name" style="font-size: clamp(20px, 4vw, 28px); font-weight: 900; color: #4E2E1E; margin: 0; margin-bottom: 10px;"></p>
-                <p id="region-description" style="font-size: clamp(13px, 2.5vw, 16px); color: #4E2E1E; margin: 0;"></p>
+                <p id="region-description" style="font-size: clamp(13px, 2.5vw, 16px); color: #4E2E1E; margin: 0; line-height: 1.5;"></p>
             </div>
             <button class="btn-gold" id="region-continue-btn" onclick="closeRegionNotification()">LANJUT</button>
         </div>
