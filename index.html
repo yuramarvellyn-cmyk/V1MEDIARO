@@ -42,7 +42,7 @@
         @media (min-width: 1024px) {
             body {
                 display: grid;
-                grid-template-columns: minmax(220px, 1fr) minmax(520px, 1.4fr) minmax(220px, 1fr);
+                grid-template-columns: 260px 1fr 260px;
                 grid-template-rows: 1fr;
                 height: 100vh;
                 overflow: hidden;
@@ -60,9 +60,10 @@
                 background: linear-gradient(180deg, #F6EBD3 0%, #E8D7B9 50%);
                 border-right: 4px solid #C89B3C;
                 border-bottom: none;
-                padding: clamp(20px, 2vw, 28px);
-                gap: clamp(16px, 2vw, 24px);
-                overflow-y: hidden;
+                padding: 18px 16px;
+                gap: 14px;
+                overflow-y: auto;
+                overscroll-behavior: contain;
                 position: sticky;
                 top: 0;
                 z-index: 30;
@@ -78,8 +79,8 @@
                 flex-direction: column;
                 align-items: center;
                 justify-content: center;
-                gap: clamp(24px, 3vw, 32px);
-                padding: clamp(20px, 2vw, 28px);
+                gap: 16px;
+                padding: 18px;
                 background: linear-gradient(135deg, #C89B3C 0%, #F6EBD3 50%, #E8D7B9 100%);
                 overflow: hidden;
                 position: relative;
@@ -96,9 +97,10 @@
                 align-items: stretch;
                 background: linear-gradient(180deg, #F6EBD3 0%, #E8D7B9 50%);
                 border-left: 4px solid #C89B3C;
-                padding: clamp(20px, 2vw, 28px);
-                gap: clamp(16px, 2vw, 24px);
-                overflow-y: hidden;
+                padding: 18px 16px;
+                gap: 14px;
+                overflow-y: auto;
+                overscroll-behavior: contain;
                 position: sticky;
                 top: 0;
                 z-index: 30;
@@ -106,9 +108,10 @@
             }
 
             .game-main .monopoly-board {
-                width: min(560px, 60vw, 72vh);
-                max-width: 560px;
-                max-height: min(72vh, 560px);
+                width: 520px;
+                height: 520px;
+                max-width: 100%;
+                max-height: 100%;
             }
 
             .game-main .control-group {
@@ -116,8 +119,19 @@
                 bottom: auto;
                 right: auto;
                 margin: 0;
+                gap: 0;
                 z-index: 1;
                 align-self: center;
+            }
+
+            .game-board-wrapper {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                width: 100%;
+                height: 100%;
+                gap: 12px;
             }
 
             /* Reorganize status bar into vertical card layout */
@@ -129,13 +143,14 @@
                 gap: 0;
                 display: flex;
                 flex-direction: column;
+                width: 100%;
             }
 
             .status-left {
                 display: flex;
                 flex-direction: column;
                 justify-content: flex-start;
-                gap: clamp(12px, 1.5vw, 16px);
+                gap: 12px;
                 width: 100%;
             }
 
@@ -144,17 +159,18 @@
                 flex-direction: column;
                 justify-content: center;
                 align-items: center;
-                padding: clamp(18px, 2vw, 24px);
-                gap: clamp(12px, 1.5vw, 16px);
-                background: rgba(255, 255, 255, 0.88);
-                border-radius: 20px;
-                border: 1px solid rgba(78, 46, 30, 0.15);
-                box-shadow: 0 12px 28px rgba(0,0,0,0.1);
+                padding: 16px;
+                gap: 10px;
+                background: rgba(255, 255, 255, 0.92);
+                border-radius: 18px;
+                border: 1px solid rgba(78, 46, 30, 0.12);
+                box-shadow: 0 8px 16px rgba(0,0,0,0.08);
+                width: 100%;
             }
 
             #status-avatar {
-                width: clamp(80px, 14vw, 120px);
-                height: clamp(80px, 14vw, 120px);
+                width: 90px;
+                height: 90px;
             }
 
             .player-info {
@@ -165,59 +181,102 @@
 
             .player-name {
                 font-weight: 900;
-                font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+                font-size: 13px;
                 color: #4E2E1E;
                 margin: 0;
+                line-height: 1.1;
             }
 
             .player-title {
-                font-size: clamp(0.75rem, 1.6vw, 0.95rem);
+                font-size: 9px;
                 color: #8B5E3C;
-                margin: 6px 0 0 0;
+                margin: 4px 0 0 0;
+                text-transform: uppercase;
+                letter-spacing: 0.08em;
             }
 
             .location-info,
             .stamina-info {
                 display: grid;
-                gap: 8px;
-                padding: clamp(14px, 1.8vw, 18px);
+                gap: 6px;
+                padding: 12px;
                 background: rgba(255, 255, 255, 0.92);
-                border-radius: 16px;
+                border-radius: 14px;
                 border: 1px solid rgba(78, 46, 30, 0.12);
-                box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+                box-shadow: 0 6px 12px rgba(0,0,0,0.06);
                 margin: 0;
                 text-align: center;
                 width: 100%;
+                min-height: auto;
             }
 
             .location-label,
             .stamina-label {
-                font-size: clamp(0.75rem, 1.4vw, 0.9rem);
+                font-size: 10px;
                 color: #8B5E3C;
                 text-transform: uppercase;
-                letter-spacing: 0.12em;
+                letter-spacing: 0.10em;
                 margin: 0;
+                font-weight: 700;
             }
 
             #current-loc {
                 font-weight: 800;
-                font-size: clamp(1rem, 2vw, 1.3rem);
+                font-size: 12px;
                 color: #4E2E1E;
                 margin: 0;
+                line-height: 1.2;
+                word-break: keep-all;
             }
 
             #life-icons {
-                font-size: clamp(1.3rem, 2.8vw, 1.8rem);
-                letter-spacing: 0.15em;
+                font-size: 16px;
+                letter-spacing: 2px;
                 display: flex;
                 justify-content: center;
-                gap: 6px;
+                gap: 2px;
             }
 
             .stamina-info {
                 display: flex;
                 flex-direction: column;
                 align-items: center;
+            }
+
+            /* Status Summary Cards Grid - 2x2 */
+            .status-summary {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+                width: 100%;
+            }
+
+            .status-summary-item {
+                display: grid;
+                gap: 4px;
+                padding: 10px;
+                background: rgba(255, 255, 255, 0.92);
+                border-radius: 12px;
+                border: 1px solid rgba(78, 46, 30, 0.12);
+                box-shadow: 0 4px 10px rgba(0,0,0,0.04);
+                text-align: center;
+                width: 100%;
+            }
+
+            .status-summary-label {
+                font-size: 8px;
+                color: #8B5E3C;
+                text-transform: uppercase;
+                letter-spacing: 0.10em;
+                margin: 0;
+                font-weight: 700;
+            }
+
+            .status-summary-item strong {
+                font-size: 11px;
+                color: #4E2E1E;
+                margin: 0;
+                line-height: 1.1;
             }
         }
 
@@ -237,23 +296,24 @@
                 position: relative !important;
                 border-right: none !important;
                 border-bottom: 4px solid #C89B3C;
-                padding: clamp(16px, 2.5vw, 20px) !important;
-                gap: clamp(12px, 2vw, 16px) !important;
+                padding: 16px;
+                gap: 12px;
                 background: linear-gradient(180deg, #F6EBD3, #E8D7B9) !important;
+                overflow-y: auto !important;
             }
 
             .game-main {
                 width: 100%;
                 height: auto;
                 min-height: auto;
-                padding: clamp(16px, 2vw, 20px);
+                padding: 16px;
                 order: 2;
             }
 
             .game-panel {
                 width: 100%;
                 height: auto;
-                padding: clamp(16px, 2vw, 20px);
+                padding: 16px;
                 background: linear-gradient(180deg, #F6EBD3, #E8D7B9);
                 border-left: none;
                 border-top: 4px solid #C89B3C;
@@ -263,22 +323,36 @@
             .status-left {
                 flex-direction: row;
                 flex-wrap: wrap;
+                gap: 12px;
             }
 
             .avatar-badge {
                 flex-direction: row;
                 gap: 12px;
                 padding: 12px 16px;
+                width: auto;
             }
 
             #status-avatar {
-                width: clamp(50px, 10vw, 70px);
-                height: clamp(50px, 10vw, 70px);
+                width: 60px;
+                height: 60px;
             }
 
             .stamina-info {
                 text-align: right;
                 flex-direction: column;
+            }
+
+            .status-summary {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 8px;
+                width: 100%;
+            }
+
+            .status-summary-item {
+                padding: 8px;
+                gap: 4px;
             }
         }
 
@@ -464,8 +538,8 @@
         }
 
         .status-metric-row {
-            display: flex;
-            flex-direction: column;
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
             gap: clamp(14px, 2vw, 18px);
             width: 100%;
         }
@@ -611,59 +685,62 @@
         .game-panel {
             display: flex;
             flex-direction: column;
-            gap: clamp(18px, 2vw, 24px);
+            gap: 14px;
             width: 100%;
-            max-width: 360px;
+            max-width: 100%;
             align-self: start;
         }
 
         .panel-card {
-            background: linear-gradient(135deg, #F6EBD3 0%, #E8D7B9 100%);
-            border: clamp(3px, 0.5vw, 5px) solid #C89B3C;
-            border-radius: clamp(16px, 2vw, 22px);
-            padding: clamp(16px, 2vw, 20px);
-            box-shadow: 0 10px 24px rgba(0,0,0,0.18);
+            background: rgba(255, 255, 255, 0.92);
+            border: 2px solid #C89B3C;
+            border-radius: 14px;
+            padding: 12px;
+            box-shadow: 0 6px 14px rgba(0,0,0,0.1);
             display: flex;
             flex-direction: column;
-            gap: clamp(12px, 1.4vw, 16px);
+            gap: 8px;
         }
 
         .panel-card h2,
         .panel-card h3 {
             margin: 0;
-            font-size: clamp(18px, 3vw, 22px);
+            font-size: 14px;
             color: #4E2E1E;
+            font-weight: 900;
         }
 
         .panel-card p {
             margin: 0;
-            line-height: 1.6;
+            line-height: 1.4;
             color: #4E2E1E;
+            font-size: 11px;
         }
 
         .panel-metrics {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: clamp(10px, 1vw, 14px);
+            displ8px;
         }
 
         .metric-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: clamp(10px, 1vw, 12px);
-            background: rgba(255,255,255,0.8);
-            border-radius: 12px;
-            border: 1px solid rgba(200,155,60,0.35);
+            padding: 8px;
+            background: rgba(200, 155, 60, 0.1);
+            border-radius: 10px;
+            border: 1px solid rgba(200,155,60,0.25);
         }
 
         .metric-row span {
-            font-size: clamp(12px, 2vw, 14px);
+            font-size: 10px;
             color: #4E2E1E;
             font-weight: 700;
         }
 
         .metric-row strong {
+            font-size: 12px;
+            color: #4E2E1E;
+            font-weight: 800 {
             font-size: clamp(14px, 2vw, 16px);
             color: #4E2E1E;
         }
@@ -688,6 +765,7 @@
             right: auto;
             margin: 0 auto;
             z-index: 1;
+            gap: 0;
         }
 
         .btn-dir-container {
@@ -701,39 +779,38 @@
             display: grid;
             grid-template-columns: repeat(5, 1fr);
             grid-template-rows: repeat(5, 1fr);
-            gap: clamp(7px, 1vw, 10px);
+            gap: 8px;
             background: #F6EBD3;
-            padding: clamp(12px, 2vw, 14px);
-            border-radius: 18px;
-            width: min(560px, 90vw, 72vh);
-            max-width: 560px;
+            padding: 12px;
+            border-radius: 16px;
+            width: 520px;
+            height: 520px;
             aspect-ratio: 1 / 1;
             position: relative;
-            border: clamp(4px, 1vw, 6px) solid #C89B3C;
-            box-shadow: inset 0 0 20px rgba(0,0,0,0.3), 0 10px 30px rgba(0,0,0,0.5);
+            border: 4px solid #C89B3C;
+            box-shadow: inset 0 0 16px rgba(0,0,0,0.25), 0 8px 24px rgba(0,0,0,0.4);
         }
 
         .tile {
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            border: clamp(2px, 0.5vw, 3px) solid #C89B3C;
+            border: 2px solid #C89B3C;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            font-weight: 800;
+            font-weight: 700;
             position: relative;
-            padding: clamp(8px, 1vw, 10px);
+            padding: 6px;
             text-align: center;
             transition: all 0.3s ease;
-            font-size: clamp(10px, 1.5vw, 13px);
-            line-height: 1.25;
-            box-shadow: inset 0 1px 0 rgba(255,255,255,0.5), 0 2px 5px rgba(0,0,0,0.2);
-            border-radius: 8px;
-            aspect-ratio: 1 / 1;
+            font-size: 11px;
+            line-height: 1.15;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.4), 0 2px 4px rgba(0,0,0,0.15);
+            border-radius: 6px;
             min-height: 0;
-            word-break: normal;
+            word-break: keep-all;
             overflow-wrap: break-word;
             white-space: normal;
         }
@@ -748,11 +825,11 @@
             z-index: 10;
             margin: 0;
             display: inline-block;
-            width: 100%;
-            font-size: clamp(10px, 1.3vw, 13px);
-            line-height: 1.2;
+            width: 95%;
+            font-size: 11px;
+            line-height: 1.15;
             white-space: normal;
-            word-break: normal;
+            word-break: keep-all;
             overflow-wrap: break-word;
         }
 
@@ -1236,15 +1313,15 @@
 
         .center-area {
             grid-area: 2 / 2 / 5 / 5;
-            background: linear-gradient(135deg, #F6EBD3 0%, #C89B3C 100%);
-            border: clamp(2px, 0.5vw, 4px) double #4E2E1E;
-            border-radius: 8px;
-            padding: clamp(12px, 2vw, 20px);
+            background: rgba(245, 235, 220, 0.85);
+            border: 2px solid #C89B3C;
+            border-radius: 6px;
+            padding: 8px;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            box-shadow: inset 0 2px 5px rgba(255,255,255,0.5), 0 4px 10px rgba(0,0,0,0.2);
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
             pointer-events: none;
             z-index: 5;
             overflow: hidden;
