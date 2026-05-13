@@ -671,16 +671,17 @@
         @media (min-width: 1024px) {
             .game-board-wrapper {
                 flex-direction: row;
-                align-items: center;
-                justify-content: center;
+                align-items: flex-end;
+                justify-content: flex-end;
                 gap: clamp(24px, 2vw, 28px);
             }
 
             .control-group {
                 position: static;
                 margin: 0;
-                align-self: center;
+                align-self: flex-end;
                 width: fit-content;
+                margin-left: clamp(18px, 2vw, 24px);
             }
 
             .btn-dir-container {
